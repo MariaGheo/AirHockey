@@ -13,9 +13,14 @@ namespace AirHockey
 {
     public partial class Form1 : Form
     {
+        //players
         Rectangle player1 = new Rectangle(10, 185, 30, 30);
         Rectangle player2 = new Rectangle(710, 185, 30, 30);
+
+        //ball
         Rectangle ball = new Rectangle(370, 200, 10, 10);
+
+        //walls
         Rectangle upperLeftWall = new Rectangle(0, 0, 2, 140);
         Rectangle lowerLeftWall = new Rectangle(0, 260, 2, 140);
         Rectangle topWall = new Rectangle(0, 0, 750, 2);
@@ -23,17 +28,22 @@ namespace AirHockey
         Rectangle upperRightWall = new Rectangle(748, 0, 2, 140);
         Rectangle lowerRightWall = new Rectangle(748, 260, 2, 140);
 
+        //constant values
+        const int maxBallXSpeed = 8;
+        const int maxBallYSpeed = 7;
+        const int playerSpeed = 4;
+        const int wallWidth = 2;
+
+        //variables for player scores
         int player1Score = 0;
         int player2Score = 0;
 
-        int maxBallXSpeed = 8;
-        int maxBallYSpeed = 7;
-        int playerSpeed = 4;
+        //variables for ball movement
         int ballXSpeed = 0;
         int ballYSpeed = 0;
-        int wallWidth = 2;
-        int counter = 0;
+        int counter = 0; //this is to make sure the ball doesn't slow down too fast
 
+        //variables for user input
         bool wDown = false;
         bool aDown = false;
         bool sDown = false;
@@ -43,6 +53,7 @@ namespace AirHockey
         bool leftArrowDown = false;
         bool rightArrowDown = false;
 
+        //brushes to make things appear on screen
         SolidBrush blueBrush = new SolidBrush(Color.DodgerBlue);
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
@@ -52,10 +63,12 @@ namespace AirHockey
         {
             InitializeComponent();
 
+            //setting score labels
             p1ScoreLabel.Text = "0";
             p2ScoreLabel.Text = "0";
         }
 
+        //for user input when a key is pressed
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -87,6 +100,7 @@ namespace AirHockey
             }
         }
 
+        //for user input when a key is released
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -118,6 +132,7 @@ namespace AirHockey
             }
         }
 
+        //game engine
         private void gameEngine_Tick(object sender, EventArgs e)
         {
             SoundPlayer player = new SoundPlayer(Properties.Resources.pongBlip);
@@ -149,26 +164,6 @@ namespace AirHockey
                 ball.Y = wallWidth;
             }
 
-            //slow down the ball
-            if (counter % 15 == 0) {
-                if (ballXSpeed > 0)
-                {
-                    ballXSpeed--;
-                }
-                else if (ballXSpeed < 0)
-                {
-                    ballXSpeed++;
-                }
-
-                if (ballYSpeed > 0)
-                {
-                    ballYSpeed--;
-                }
-                else if (ballYSpeed < 0)
-                {
-                    ballYSpeed++;
-                }
-            }
 
             //move player 1 
             if (wDown == true && player1.Y > wallWidth)
@@ -219,6 +214,7 @@ namespace AirHockey
                 }
             }
 
+
             //move player 2 
             if (upArrowDown == true && player2.Y > wallWidth)
             {
@@ -268,12 +264,14 @@ namespace AirHockey
                 }
             }
 
+
             //check if ball hit top or bottom wall and change direction if it does 
             if (ball.Y == this.Height - wallWidth - ball.Height || ball.Y == wallWidth)
             {
                 ballYSpeed *= -1;  // or: ballYSpeed = -ballYSpeed;
                 player.Play();
             }
+
 
             //check if ball hit right or left wall and change direction if it does
             if ((ball.X == wallWidth || ball.X == this.Width - ball.Width - wallWidth) && (ball.Y < 140 || ball.Y > 260))
@@ -282,18 +280,19 @@ namespace AirHockey
                 player.Play();
             }
 
+
             //check if ball hits either player. If it does change the direction 
             //and place the ball in front of the player hit 
             if (player1.IntersectsWith(ball))
             {
                 player.Play();
 
-                if (aDown == true && dDown == false)
+                if (aDown == true && dDown == false) //base the ball movement on player movement
                 {
                     ball.X -= ball.Width + playerSpeed;
                     ballXSpeed = -maxBallXSpeed;
                 }
-                else if (dDown == true && aDown == false)
+                else if (dDown == true && aDown == false) //base the ball movement on player movement
                 {
                     ball.X += ball.Width + playerSpeed;
                     ballXSpeed = maxBallXSpeed;
@@ -377,6 +376,32 @@ namespace AirHockey
                 }
             }
 
+
+            //slow down the ball
+            if (counter % 15 == 0)
+            {
+                if (ballXSpeed > 0)
+                {
+                    ballXSpeed--;
+                }
+                else if (ballXSpeed < 0)
+                {
+                    ballXSpeed++;
+                }
+
+                if (ballYSpeed > 0)
+                {
+                    ballYSpeed--;
+                }
+                else if (ballYSpeed < 0)
+                {
+                    ballYSpeed++;
+                }
+            }
+            
+            counter++; //for the previous if statement, so the ball doesn't slow down too fast
+
+
             //check if the ball was scored
             if ((ball.X < -ball.Width || ball.X > this.Width) && ball.Y > 140 && ball.Y < 260)
             {
@@ -416,11 +441,11 @@ namespace AirHockey
                 }
             }
 
-            counter++;
 
-            Refresh();
+            Refresh(); //update the screen to show movement
         }
 
+        //show the screen
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(greenBrush, ball);
