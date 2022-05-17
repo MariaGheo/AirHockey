@@ -29,9 +29,9 @@ namespace AirHockey
         Rectangle lowerRightWall = new Rectangle(748, 260, 2, 140);
 
         //constant values
-        const int maxBallXSpeed = 8;
-        const int maxBallYSpeed = 7;
-        const int playerSpeed = 4;
+        const int maxBallXSpeed = 10;
+        const int maxBallYSpeed = 9;
+        const int playerSpeed = 6;
         const int wallWidth = 2;
 
         //variables for player scores
@@ -53,11 +53,12 @@ namespace AirHockey
         bool leftArrowDown = false;
         bool rightArrowDown = false;
 
-        //brushes to make things appear on screen
+        //brushes and pens to make things appear on screen
         SolidBrush blueBrush = new SolidBrush(Color.DodgerBlue);
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
         SolidBrush greenBrush = new SolidBrush(Color.Green);
+        Pen whitePen = new Pen(Color.White, 1);
 
         public Form1()
         {
@@ -401,7 +402,6 @@ namespace AirHockey
             
             counter++; //for the previous if statement, so the ball doesn't slow down too fast
 
-
             //check if the ball was scored
             if ((ball.X < -ball.Width || ball.X > this.Width) && ball.Y > 140 && ball.Y < 260)
             {
@@ -448,13 +448,14 @@ namespace AirHockey
         //show the screen
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(greenBrush, ball);
+            e.Graphics.DrawLine(whitePen, 375, 0, 375, 400);
             e.Graphics.FillRectangle(whiteBrush, upperLeftWall);
             e.Graphics.FillRectangle(whiteBrush, lowerLeftWall);
             e.Graphics.FillRectangle(whiteBrush, topWall);
             e.Graphics.FillRectangle(whiteBrush, bottomWall);
             e.Graphics.FillRectangle(whiteBrush, upperRightWall);
             e.Graphics.FillRectangle(whiteBrush, lowerRightWall);
+            e.Graphics.FillRectangle(greenBrush, ball);
             e.Graphics.FillRectangle(blueBrush, player1);
             e.Graphics.FillRectangle(redBrush, player2);
         }
