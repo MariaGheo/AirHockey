@@ -18,7 +18,7 @@ namespace AirHockey
         Rectangle player2 = new Rectangle(710, 185, 30, 30);
 
         //ball
-        Rectangle ball = new Rectangle(370, 200, 10, 10);
+        Rectangle ball = new Rectangle(370, 195, 10, 10);
 
         //walls
         Rectangle upperLeftWall = new Rectangle(0, 0, 2, 140);
@@ -419,7 +419,7 @@ namespace AirHockey
                 //reset positions of objects
                 player1.Location = new Point (10, 185);
                 player2.Location = new Point(710, 185);
-                ball.Location = new Point(370, 200);
+                ball.Location = new Point(370, 195);
 
                 //stop ball from moving
                 ballXSpeed = 0;
@@ -448,14 +448,24 @@ namespace AirHockey
         //show the screen
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            //draw stuff to make it fancy
             e.Graphics.DrawLine(whitePen, 375, 0, 375, 400);
+            e.Graphics.DrawArc(whitePen, -75 + wallWidth, 125, 150, 150, 270, 180);
+            e.Graphics.DrawArc(whitePen, this.Width - 75 - wallWidth, 125, 150, 150, 90, 180);
+            e.Graphics.DrawEllipse(whitePen, 375 - 25, 200 - 25, 50, 50);
+
+            //draw walls
             e.Graphics.FillRectangle(whiteBrush, upperLeftWall);
             e.Graphics.FillRectangle(whiteBrush, lowerLeftWall);
             e.Graphics.FillRectangle(whiteBrush, topWall);
             e.Graphics.FillRectangle(whiteBrush, bottomWall);
             e.Graphics.FillRectangle(whiteBrush, upperRightWall);
             e.Graphics.FillRectangle(whiteBrush, lowerRightWall);
+            
+            //draw ball
             e.Graphics.FillRectangle(greenBrush, ball);
+
+            //draw players
             e.Graphics.FillRectangle(blueBrush, player1);
             e.Graphics.FillRectangle(redBrush, player2);
         }
