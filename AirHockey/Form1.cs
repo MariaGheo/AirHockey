@@ -30,7 +30,7 @@ namespace AirHockey
 
         //constant values
         const int maxBallXSpeed = 10;
-        const int maxBallYSpeed = 9;
+        const int maxBallYSpeed = 7;
         const int playerSpeed = 6;
         const int wallWidth = 2;
 
