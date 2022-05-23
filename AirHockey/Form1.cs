@@ -29,9 +29,9 @@ namespace AirHockey
         Rectangle lowerRightWall = new Rectangle(748, 260, 2, 140);
 
         //constant values
-        const int maxBallXSpeed = 10;
-        const int maxBallYSpeed = 7;
-        const int playerSpeed = 6;
+        const int maxBallXSpeed = 13;
+        const int maxBallYSpeed = 9;
+        const int playerSpeed = 10;
         const int wallWidth = 2;
 
         //variables for player scores
@@ -438,6 +438,14 @@ namespace AirHockey
                     
                     gameEngine.Enabled = false;
                     winLabel.Visible = true;
+
+                    SoundPlayer winBeeps = new SoundPlayer(Properties.Resources.winBeeps);
+                    winBeeps.Play();
+                }
+                else
+                {
+                    SoundPlayer scoreBeep = new SoundPlayer(Properties.Resources.scoreBeep);
+                    scoreBeep.Play();
                 }
             }
 

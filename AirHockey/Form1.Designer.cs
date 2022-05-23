@@ -69,7 +69,7 @@
             // 
             this.winLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.winLabel.ForeColor = System.Drawing.Color.White;
-            this.winLabel.Location = new System.Drawing.Point(230, 196);
+            this.winLabel.Location = new System.Drawing.Point(231, 188);
             this.winLabel.Name = "winLabel";
             this.winLabel.Size = new System.Drawing.Size(297, 23);
             this.winLabel.TabIndex = 2;

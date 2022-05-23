@@ -68,5 +68,23 @@ namespace AirHockey.Properties {
                 return ResourceManager.GetStream("pongBlip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream scoreBeep {
+            get {
+                return ResourceManager.GetStream("scoreBeep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream winBeeps {
+            get {
+                return ResourceManager.GetStream("winBeeps", resourceCulture);
+            }
+        }
     }
 }
